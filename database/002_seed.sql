@@ -1,0 +1,116 @@
+-- HomeFix fictional Nepal seed data.
+-- All demo account passwords are hashed with pgcrypto; plaintext is never stored.
+
+TRUNCATE reviews, bookings, service_professionals, professionals, services, users CASCADE;
+
+INSERT INTO services (id, name, slug, description, base_price) VALUES
+('00000000-0000-4000-8000-000000000101', 'Plumbing', 'plumbing', 'Leaks, taps, pipes, drains and water fixture repairs.', 1200.00),
+('00000000-0000-4000-8000-000000000102', 'Electrical', 'electrical', 'Safe wiring, switches, lighting and electrical repairs.', 1500.00),
+('00000000-0000-4000-8000-000000000103', 'Home Cleaning', 'home-cleaning', 'Reliable home cleaning for kitchens, rooms and common areas.', 1800.00),
+('00000000-0000-4000-8000-000000000104', 'Appliance Repair', 'appliance-repair', 'Diagnostics and repairs for everyday home appliances.', 1400.00),
+('00000000-0000-4000-8000-000000000105', 'Painting', 'painting', 'Interior wall painting, touch-ups and color refreshes.', 3500.00),
+('00000000-0000-4000-8000-000000000106', 'Carpentry', 'carpentry', 'Furniture repairs, shelves, doors and custom woodwork.', 2200.00),
+('00000000-0000-4000-8000-000000000107', 'AC Repair', 'ac-repair', 'Air conditioner servicing, cleaning and repairs.', 1800.00),
+('00000000-0000-4000-8000-000000000108', 'Pest Control', 'pest-control', 'Practical pest inspection and home treatment services.', 2500.00),
+('00000000-0000-4000-8000-000000000109', 'Gardening', 'gardening', 'Garden care, trimming, planting and seasonal maintenance.', 1600.00),
+('00000000-0000-4000-8000-000000000110', 'General Maintenance', 'general-maintenance', 'Small fixes and routine care to keep a home running well.', 1300.00);
+
+INSERT INTO professionals (id, full_name, profession, email, phone, location, experience_years, rating, profile_image_url, availability, bio) VALUES
+('00000000-0000-4000-8000-000000000201', 'Aarav Shrestha', 'Plumber', 'aarav.shrestha@example.test', '+977-9800000201', 'Kathmandu', 8, 4.8, 'https://i.pravatar.cc/240?img=11', 'Sun-Fri, 8:00-17:00', 'Careful plumbing repairs for apartments and family homes.'),
+('00000000-0000-4000-8000-000000000202', 'Mina Gurung', 'Electrician', 'mina.gurung@example.test', '+977-9800000202', 'Lalitpur', 6, 4.9, 'https://i.pravatar.cc/240?img=47', 'Sun-Thu, 9:00-18:00', 'Friendly electrical work with a focus on safe installations.'),
+('00000000-0000-4000-8000-000000000203', 'Prabin Thapa', 'Home Cleaner', 'prabin.thapa@example.test', '+977-9800000203', 'Bhaktapur', 5, 4.7, 'https://i.pravatar.cc/240?img=12', 'Every day, 7:00-16:00', 'Detail-focused cleaning for busy households.'),
+('00000000-0000-4000-8000-000000000204', 'Nisha Rai', 'Appliance Technician', 'nisha.rai@example.test', '+977-9800000204', 'Kathmandu', 9, 4.9, 'https://i.pravatar.cc/240?img=44', 'Sun-Fri, 10:00-18:00', 'Appliance diagnostics with clear, honest recommendations.'),
+('00000000-0000-4000-8000-000000000205', 'Suman KC', 'Painter', 'suman.kc@example.test', '+977-9800000205', 'Pokhara', 11, 4.6, 'https://i.pravatar.cc/240?img=13', 'Sun-Fri, 8:00-17:00', 'Neat interior painting and thoughtful color preparation.'),
+('00000000-0000-4000-8000-000000000206', 'Elina Tamang', 'Carpenter', 'elina.tamang@example.test', '+977-9800000206', 'Lalitpur', 7, 4.8, 'https://i.pravatar.cc/240?img=48', 'Mon-Sat, 9:00-17:00', 'Practical custom carpentry and furniture repairs.'),
+('00000000-0000-4000-8000-000000000207', 'Bikash Adhikari', 'AC Technician', 'bikash.adhikari@example.test', '+977-9800000207', 'Kathmandu', 10, 4.7, 'https://i.pravatar.cc/240?img=14', 'Sun-Fri, 8:00-16:00', 'Reliable cooling system servicing for every season.'),
+('00000000-0000-4000-8000-000000000208', 'Roshni Maharjan', 'Pest Control Specialist', 'roshni.maharjan@example.test', '+977-9800000208', 'Bhaktapur', 6, 4.8, 'https://i.pravatar.cc/240?img=49', 'Sun-Thu, 8:00-15:00', 'Careful home treatments with clear safety guidance.'),
+('00000000-0000-4000-8000-000000000209', 'Kiran Lama', 'Gardener', 'kiran.lama@example.test', '+977-9800000209', 'Pokhara', 12, 4.9, 'https://i.pravatar.cc/240?img=15', 'Every day, 6:00-15:00', 'Garden care that keeps outdoor spaces healthy and welcoming.'),
+('00000000-0000-4000-8000-000000000210', 'Sujata Poudel', 'Maintenance Specialist', 'sujata.poudel@example.test', '+977-9800000210', 'Chitwan', 8, 4.7, 'https://i.pravatar.cc/240?img=45', 'Sun-Fri, 9:00-17:00', 'A versatile home maintenance professional for everyday fixes.'),
+('00000000-0000-4000-8000-000000000211', 'Dipesh Bista', 'Plumber', 'dipesh.bista@example.test', '+977-9800000211', 'Lalitpur', 4, 4.5, 'https://i.pravatar.cc/240?img=16', 'Sun-Thu, 10:00-18:00', 'Prompt plumbing repairs and fixture replacements.'),
+('00000000-0000-4000-8000-000000000212', 'Anu Karki', 'Electrician', 'anu.karki@example.test', '+977-9800000212', 'Pokhara', 5, 4.6, 'https://i.pravatar.cc/240?img=46', 'Sun-Fri, 8:00-16:00', 'Residential electrical maintenance and lighting upgrades.'),
+('00000000-0000-4000-8000-000000000213', 'Roshan Joshi', 'Home Cleaner', 'roshan.joshi@example.test', '+977-9800000213', 'Chitwan', 3, 4.5, 'https://i.pravatar.cc/240?img=17', 'Mon-Sat, 7:00-15:00', 'Consistent, respectful cleaning support for local homes.'),
+('00000000-0000-4000-8000-000000000214', 'Kabita Shahi', 'Painter', 'kabita.shahi@example.test', '+977-9800000214', 'Bhaktapur', 9, 4.8, 'https://i.pravatar.cc/240?img=50', 'Sun-Fri, 9:00-17:00', 'Patient surface preparation and tidy finishing work.'),
+('00000000-0000-4000-8000-000000000215', 'Manoj Gurung', 'General Technician', 'manoj.gurung@example.test', '+977-9800000215', 'Kathmandu', 13, 4.9, 'https://i.pravatar.cc/240?img=18', 'Sun-Fri, 8:00-18:00', 'Experienced general maintenance for homes and small offices.');
+
+INSERT INTO users (id, full_name, email, password_hash, phone, address, location, role) VALUES
+('00000000-0000-4000-8000-000000000301', 'Asha Basnet', 'asha.basnet@example.test', crypt('HomeFixDemo!1', gen_salt('bf')), '+977-9810000301', 'Ward 4, Lazimpat', 'Kathmandu', 'CUSTOMER'),
+('00000000-0000-4000-8000-000000000302', 'Nabin Shakya', 'nabin.shakya@example.test', crypt('HomeFixDemo!2', gen_salt('bf')), '+977-9810000302', 'Ward 10, Jawalakhel', 'Lalitpur', 'CUSTOMER'),
+('00000000-0000-4000-8000-000000000303', 'Sita Joshi', 'sita.joshi@example.test', crypt('HomeFixDemo!3', gen_salt('bf')), '+977-9810000303', 'Ward 6, Suryabinayak', 'Bhaktapur', 'CUSTOMER'),
+('00000000-0000-4000-8000-000000000304', 'Ramesh Khatri', 'ramesh.khatri@example.test', crypt('HomeFixDemo!4', gen_salt('bf')), '+977-9810000304', 'Lakeside North', 'Pokhara', 'CUSTOMER'),
+('00000000-0000-4000-8000-000000000305', 'Tara Gurung', 'tara.gurung@example.test', crypt('HomeFixDemo!5', gen_salt('bf')), '+977-9810000305', 'Bharatpur Heights', 'Chitwan', 'CUSTOMER'),
+('00000000-0000-4000-8000-000000000306', 'Bibek Shrestha', 'bibek.shrestha@example.test', crypt('HomeFixDemo!6', gen_salt('bf')), '+977-9810000306', 'Ward 3, Baluwatar', 'Kathmandu', 'CUSTOMER'),
+('00000000-0000-4000-8000-000000000307', 'Maya Rai', 'maya.rai@example.test', crypt('HomeFixDemo!7', gen_salt('bf')), '+977-9810000307', 'Ward 5, Patan', 'Lalitpur', 'CUSTOMER'),
+('00000000-0000-4000-8000-000000000308', 'Kamal Tamang', 'kamal.tamang@example.test', crypt('HomeFixDemo!8', gen_salt('bf')), '+977-9810000308', 'Ward 2, Thimi', 'Bhaktapur', 'CUSTOMER'),
+('00000000-0000-4000-8000-000000000309', 'Laxmi Adhikari', 'laxmi.adhikari@example.test', crypt('HomeFixDemo!9', gen_salt('bf')), '+977-9810000309', 'Lakeside East', 'Pokhara', 'CUSTOMER'),
+('00000000-0000-4000-8000-000000000310', 'Hari Poudel', 'hari.poudel@example.test', crypt('HomeFixDemo!10', gen_salt('bf')), '+977-9810000310', 'Bharatpur Central', 'Chitwan', 'CUSTOMER');
+
+INSERT INTO service_professionals (service_id, professional_id) VALUES
+('00000000-0000-4000-8000-000000000101', '00000000-0000-4000-8000-000000000201'),
+('00000000-0000-4000-8000-000000000101', '00000000-0000-4000-8000-000000000211'),
+('00000000-0000-4000-8000-000000000102', '00000000-0000-4000-8000-000000000202'),
+('00000000-0000-4000-8000-000000000102', '00000000-0000-4000-8000-000000000212'),
+('00000000-0000-4000-8000-000000000103', '00000000-0000-4000-8000-000000000203'),
+('00000000-0000-4000-8000-000000000103', '00000000-0000-4000-8000-000000000213'),
+('00000000-0000-4000-8000-000000000104', '00000000-0000-4000-8000-000000000204'),
+('00000000-0000-4000-8000-000000000105', '00000000-0000-4000-8000-000000000205'),
+('00000000-0000-4000-8000-000000000105', '00000000-0000-4000-8000-000000000214'),
+('00000000-0000-4000-8000-000000000106', '00000000-0000-4000-8000-000000000206'),
+('00000000-0000-4000-8000-000000000107', '00000000-0000-4000-8000-000000000207'),
+('00000000-0000-4000-8000-000000000108', '00000000-0000-4000-8000-000000000208'),
+('00000000-0000-4000-8000-000000000109', '00000000-0000-4000-8000-000000000209'),
+('00000000-0000-4000-8000-000000000110', '00000000-0000-4000-8000-000000000210'),
+('00000000-0000-4000-8000-000000000110', '00000000-0000-4000-8000-000000000215'),
+('00000000-0000-4000-8000-000000000110', '00000000-0000-4000-8000-000000000201'),
+('00000000-0000-4000-8000-000000000104', '00000000-0000-4000-8000-000000000210'),
+('00000000-0000-4000-8000-000000000106', '00000000-0000-4000-8000-000000000215'),
+('00000000-0000-4000-8000-000000000109', '00000000-0000-4000-8000-000000000210'),
+('00000000-0000-4000-8000-000000000108', '00000000-0000-4000-8000-000000000215');
+
+INSERT INTO bookings (id, user_id, service_id, professional_id, booking_date, booking_time, address, location, notes, status) VALUES
+('00000000-0000-4000-8000-000000000401', '00000000-0000-4000-8000-000000000301', '00000000-0000-4000-8000-000000000101', '00000000-0000-4000-8000-000000000201', '2026-10-03', '09:00', 'Ward 4, Lazimpat', 'Kathmandu', 'Kitchen tap is leaking.', 'CONFIRMED'),
+('00000000-0000-4000-8000-000000000402', '00000000-0000-4000-8000-000000000302', '00000000-0000-4000-8000-000000000102', '00000000-0000-4000-8000-000000000202', '2026-10-04', '11:00', 'Ward 10, Jawalakhel', 'Lalitpur', 'Install two ceiling lights.', 'PENDING'),
+('00000000-0000-4000-8000-000000000403', '00000000-0000-4000-8000-000000000303', '00000000-0000-4000-8000-000000000103', '00000000-0000-4000-8000-000000000203', '2026-10-05', '10:30', 'Ward 6, Suryabinayak', 'Bhaktapur', 'Monthly home cleaning.', 'CONFIRMED'),
+('00000000-0000-4000-8000-000000000404', '00000000-0000-4000-8000-000000000304', '00000000-0000-4000-8000-000000000104', '00000000-0000-4000-8000-000000000204', '2026-10-06', '14:00', 'Lakeside North', 'Pokhara', 'Washing machine making noise.', 'IN_PROGRESS'),
+('00000000-0000-4000-8000-000000000405', '00000000-0000-4000-8000-000000000305', '00000000-0000-4000-8000-000000000105', '00000000-0000-4000-8000-000000000205', '2026-10-07', '09:30', 'Bharatpur Heights', 'Chitwan', 'Refresh living room walls.', 'PENDING'),
+('00000000-0000-4000-8000-000000000406', '00000000-0000-4000-8000-000000000306', '00000000-0000-4000-8000-000000000106', '00000000-0000-4000-8000-000000000206', '2026-10-08', '13:00', 'Ward 3, Baluwatar', 'Kathmandu', 'Build a hallway shelf.', 'CONFIRMED'),
+('00000000-0000-4000-8000-000000000407', '00000000-0000-4000-8000-000000000307', '00000000-0000-4000-8000-000000000107', '00000000-0000-4000-8000-000000000207', '2026-10-09', '15:00', 'Ward 5, Patan', 'Lalitpur', 'AC is not cooling well.', 'PENDING'),
+('00000000-0000-4000-8000-000000000408', '00000000-0000-4000-8000-000000000308', '00000000-0000-4000-8000-000000000108', '00000000-0000-4000-8000-000000000208', '2026-10-10', '08:30', 'Ward 2, Thimi', 'Bhaktapur', 'Ant inspection requested.', 'CONFIRMED'),
+('00000000-0000-4000-8000-000000000409', '00000000-0000-4000-8000-000000000309', '00000000-0000-4000-8000-000000000109', '00000000-0000-4000-8000-000000000209', '2026-10-11', '07:00', 'Lakeside East', 'Pokhara', 'Trim and replant the garden.', 'COMPLETED'),
+('00000000-0000-4000-8000-000000000410', '00000000-0000-4000-8000-000000000310', '00000000-0000-4000-8000-000000000110', '00000000-0000-4000-8000-000000000210', '2026-10-12', '12:00', 'Bharatpur Central', 'Chitwan', 'Several small repairs.', 'CANCELLED'),
+('00000000-0000-4000-8000-000000000411', '00000000-0000-4000-8000-000000000301', '00000000-0000-4000-8000-000000000101', '00000000-0000-4000-8000-000000000211', '2026-10-13', '10:00', 'Ward 4, Lazimpat', 'Kathmandu', 'Bathroom drain is blocked.', 'PENDING'),
+('00000000-0000-4000-8000-000000000412', '00000000-0000-4000-8000-000000000302', '00000000-0000-4000-8000-000000000102', '00000000-0000-4000-8000-000000000212', '2026-10-14', '16:00', 'Ward 10, Jawalakhel', 'Lalitpur', 'Check circuit breaker.', 'COMPLETED'),
+('00000000-0000-4000-8000-000000000413', '00000000-0000-4000-8000-000000000303', '00000000-0000-4000-8000-000000000103', '00000000-0000-4000-8000-000000000213', '2026-10-15', '08:00', 'Ward 6, Suryabinayak', 'Bhaktapur', 'Move-in cleaning.', 'CONFIRMED'),
+('00000000-0000-4000-8000-000000000414', '00000000-0000-4000-8000-000000000304', '00000000-0000-4000-8000-000000000104', '00000000-0000-4000-8000-000000000210', '2026-10-16', '09:00', 'Lakeside North', 'Pokhara', 'Refrigerator needs inspection.', 'PENDING'),
+('00000000-0000-4000-8000-000000000415', '00000000-0000-4000-8000-000000000305', '00000000-0000-4000-8000-000000000105', '00000000-0000-4000-8000-000000000214', '2026-10-17', '11:30', 'Bharatpur Heights', 'Chitwan', 'Paint one bedroom.', 'CONFIRMED'),
+('00000000-0000-4000-8000-000000000416', '00000000-0000-4000-8000-000000000306', '00000000-0000-4000-8000-000000000106', '00000000-0000-4000-8000-000000000215', '2026-10-18', '14:30', 'Ward 3, Baluwatar', 'Kathmandu', 'Repair cupboard hinges.', 'COMPLETED'),
+('00000000-0000-4000-8000-000000000417', '00000000-0000-4000-8000-000000000307', '00000000-0000-4000-8000-000000000107', '00000000-0000-4000-8000-000000000207', '2026-10-19', '10:30', 'Ward 5, Patan', 'Lalitpur', 'Seasonal AC service.', 'PENDING'),
+('00000000-0000-4000-8000-000000000418', '00000000-0000-4000-8000-000000000308', '00000000-0000-4000-8000-000000000108', '00000000-0000-4000-8000-000000000215', '2026-10-20', '13:00', 'Ward 2, Thimi', 'Bhaktapur', 'Preventive pest treatment.', 'CANCELLED'),
+('00000000-0000-4000-8000-000000000419', '00000000-0000-4000-8000-000000000309', '00000000-0000-4000-8000-000000000109', '00000000-0000-4000-8000-000000000209', '2026-10-21', '07:30', 'Lakeside East', 'Pokhara', 'Prune fruit trees.', 'CONFIRMED'),
+('00000000-0000-4000-8000-000000000420', '00000000-0000-4000-8000-000000000310', '00000000-0000-4000-8000-000000000110', '00000000-0000-4000-8000-000000000201', '2026-10-22', '15:30', 'Bharatpur Central', 'Chitwan', 'Install a curtain rod and fix a latch.', 'IN_PROGRESS');
+
+INSERT INTO reviews (id, user_id, professional_id, booking_id, rating, comment, created_at) VALUES
+('00000000-0000-4000-8000-000000000501', '00000000-0000-4000-8000-000000000301', '00000000-0000-4000-8000-000000000201', '00000000-0000-4000-8000-000000000401', 5, 'Aarav explained the repair clearly and left the kitchen tidy.', '2026-09-01'),
+('00000000-0000-4000-8000-000000000502', '00000000-0000-4000-8000-000000000302', '00000000-0000-4000-8000-000000000202', '00000000-0000-4000-8000-000000000402', 5, 'Very careful electrical work and excellent communication.', '2026-09-02'),
+('00000000-0000-4000-8000-000000000503', '00000000-0000-4000-8000-000000000303', '00000000-0000-4000-8000-000000000203', '00000000-0000-4000-8000-000000000403', 4, 'The home was fresh and clean when the team finished.', '2026-09-03'),
+('00000000-0000-4000-8000-000000000504', '00000000-0000-4000-8000-000000000304', '00000000-0000-4000-8000-000000000204', '00000000-0000-4000-8000-000000000404', 5, 'Quick diagnosis and a useful explanation of the options.', '2026-09-04'),
+('00000000-0000-4000-8000-000000000505', '00000000-0000-4000-8000-000000000305', '00000000-0000-4000-8000-000000000205', '00000000-0000-4000-8000-000000000405', 4, 'The paint finish looks even and the work was neat.', '2026-09-05'),
+('00000000-0000-4000-8000-000000000506', '00000000-0000-4000-8000-000000000306', '00000000-0000-4000-8000-000000000206', '00000000-0000-4000-8000-000000000406', 5, 'The new shelf is sturdy and exactly what we needed.', '2026-09-06'),
+('00000000-0000-4000-8000-000000000507', '00000000-0000-4000-8000-000000000307', '00000000-0000-4000-8000-000000000207', '00000000-0000-4000-8000-000000000407', 4, 'The AC is running quietly again.', '2026-09-07'),
+('00000000-0000-4000-8000-000000000508', '00000000-0000-4000-8000-000000000308', '00000000-0000-4000-8000-000000000208', '00000000-0000-4000-8000-000000000408', 5, 'Clear instructions and a careful treatment process.', '2026-09-08'),
+('00000000-0000-4000-8000-000000000509', '00000000-0000-4000-8000-000000000309', '00000000-0000-4000-8000-000000000209', '00000000-0000-4000-8000-000000000409', 5, 'The garden looks cared for and beautifully organized.', '2026-09-09'),
+('00000000-0000-4000-8000-000000000510', '00000000-0000-4000-8000-000000000310', '00000000-0000-4000-8000-000000000210', '00000000-0000-4000-8000-000000000410', 4, 'Handled several little jobs in one efficient visit.', '2026-09-10'),
+('00000000-0000-4000-8000-000000000511', '00000000-0000-4000-8000-000000000301', '00000000-0000-4000-8000-000000000211', '00000000-0000-4000-8000-000000000411', 4, 'The blocked drain was fixed without any mess.', '2026-09-11'),
+('00000000-0000-4000-8000-000000000512', '00000000-0000-4000-8000-000000000302', '00000000-0000-4000-8000-000000000212', '00000000-0000-4000-8000-000000000412', 5, 'Professional, punctual and easy to work with.', '2026-09-12'),
+('00000000-0000-4000-8000-000000000513', '00000000-0000-4000-8000-000000000303', '00000000-0000-4000-8000-000000000213', '00000000-0000-4000-8000-000000000413', 4, 'A thorough clean with thoughtful attention to detail.', '2026-09-13'),
+('00000000-0000-4000-8000-000000000514', '00000000-0000-4000-8000-000000000304', '00000000-0000-4000-8000-000000000210', '00000000-0000-4000-8000-000000000414', 5, 'The appliance issue was explained in plain language.', '2026-09-14'),
+('00000000-0000-4000-8000-000000000515', '00000000-0000-4000-8000-000000000305', '00000000-0000-4000-8000-000000000214', '00000000-0000-4000-8000-000000000415', 5, 'The room has a lovely, even new color.', '2026-09-15'),
+('00000000-0000-4000-8000-000000000516', '00000000-0000-4000-8000-000000000306', '00000000-0000-4000-8000-000000000215', '00000000-0000-4000-8000-000000000416', 5, 'Manoj fixed the cupboard carefully and quickly.', '2026-09-16'),
+('00000000-0000-4000-8000-000000000517', '00000000-0000-4000-8000-000000000307', '00000000-0000-4000-8000-000000000207', '00000000-0000-4000-8000-000000000417', 4, 'Good service and useful maintenance advice.', '2026-09-17'),
+('00000000-0000-4000-8000-000000000518', '00000000-0000-4000-8000-000000000308', '00000000-0000-4000-8000-000000000215', '00000000-0000-4000-8000-000000000418', 4, 'The technician was respectful and thorough.', '2026-09-18'),
+('00000000-0000-4000-8000-000000000519', '00000000-0000-4000-8000-000000000309', '00000000-0000-4000-8000-000000000209', '00000000-0000-4000-8000-000000000419', 5, 'Excellent garden work and friendly suggestions.', '2026-09-19'),
+('00000000-0000-4000-8000-000000000520', '00000000-0000-4000-8000-000000000310', '00000000-0000-4000-8000-000000000201', '00000000-0000-4000-8000-000000000420', 5, 'Aarav solved the latch issue and checked other small problems.', '2026-09-20'),
+('00000000-0000-4000-8000-000000000521', '00000000-0000-4000-8000-000000000301', '00000000-0000-4000-8000-000000000201', NULL, 5, 'Consistently dependable plumbing support.', '2026-09-21'),
+('00000000-0000-4000-8000-000000000522', '00000000-0000-4000-8000-000000000302', '00000000-0000-4000-8000-000000000202', NULL, 4, 'Good advice before starting the electrical work.', '2026-09-22'),
+('00000000-0000-4000-8000-000000000523', '00000000-0000-4000-8000-000000000303', '00000000-0000-4000-8000-000000000203', NULL, 5, 'A calm and careful cleaning service.', '2026-09-23'),
+('00000000-0000-4000-8000-000000000524', '00000000-0000-4000-8000-000000000304', '00000000-0000-4000-8000-000000000209', NULL, 5, 'The garden work made a huge difference.', '2026-09-24'),
+('00000000-0000-4000-8000-000000000525', '00000000-0000-4000-8000-000000000305', '00000000-0000-4000-8000-000000000215', NULL, 4, 'Helpful general maintenance and clear pricing.', '2026-09-25');
