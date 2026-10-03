@@ -1,698 +1,226 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from "react";
+import axios from "axios";
 import {
-  Link,
-  BrowserRouter,
-  Routes,
-  Route,
-  NavLink,
-} from 'react-router-dom'
-import {
-  ArrowRight,
-  CalendarDays,
-  Check,
-  Droplets,
-  Hammer,
-  Home as HomeIcon,
-  Menu,
-  Sparkles,
   Wrench,
-  X,
-  Zap,
-} from 'lucide-react'
-import axios from 'axios'
-import './App.css'
-
-const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5001/api',
-})
-
-/* ----------------------------- Header ----------------------------- */
-
-function Header() {
-  const [open, setOpen] = useState(false)
-
-  return (
-    <header>
-      <Link className="logo" to="/">
-        homefix<span>.</span>
-      </Link>
-
-      <button
-        className="menu"
-        onClick={() => setOpen(!open)}
-        aria-label="Toggle menu"
-      >
-        {open ? <X /> : <Menu />}
-      </button>
-
-      <nav className={open ? 'open' : ''}>
-        <NavLink to="/services">Services</NavLink>
-        <NavLink to="/professionals">Professionals</NavLink>
-        <NavLink to="/about">About</NavLink>
-        <NavLink to="/contact">Contact</NavLink>
-
-        <Link className="button dark" to="/login">
-          Log in <ArrowRight size={16} />
-        </Link>
-      </nav>
-    </header>
-  )
-}
-
-/* ----------------------------- Layout ----------------------------- */
-
-function Layout({ children }) {
-  return (
-    <>
-      <Header />
-
-      <main>{children}</main>
-
-      <footer>
-        <Link className="logo" to="/">
-          homefix<span>.</span>
-        </Link>
-
-        <span>Good help, right at home.</span>
-      </footer>
-    </>
-  )
-}
-
-/* ----------------------------- Home ----------------------------- */
-
-function Home() {
-  const featuredServices = [
-    {
-      id: 'plumbing',
-      name: 'Plumbing',
-      Icon: Droplets,
-      description:
-        'Leaks, repairs, installations and everything in between.',
-    },
-    {
-      id: 'electrical',
-      name: 'Electrical',
-      Icon: Zap,
-      description:
-        'Safe, reliable electrical work from certified experts.',
-    },
-    {
-      id: 'home-cleaning',
-      name: 'Cleaning',
-      Icon: Sparkles,
-      description:
-        'A deeper clean for a home that feels like yours.',
-    },
-    {
-      id: 'appliance-repair',
-      name: 'Appliance Repair',
-      Icon: Wrench,
-      description:
-        'Keep your essential appliances running smoothly.',
-    },
-  ]
-
-  return (
-    <Layout>
-      <section className="hero">
-        <div>
-          <small>● TRUSTED HOME SERVICES, MADE SIMPLE</small>
-
-          <h1>
-            Your home,
-            <br />
-            <em>in good hands.</em>
-          </h1>
-
-          <p>
-            From a dripping tap to a full home refresh, find the right
-            professional and book with confidence.
-          </p>
-
-          <Link className="button dark" to="/services">
-            Find a professional <ArrowRight size={17} />
-          </Link>
-        </div>
-
-        <div className="illustration">
-          <div className="sun" />
-
-          <div className="house">
-            <div className="door" />
-          </div>
-
-          <div className="rating">
-            <strong>4.9</strong>
-            <span>★★★★★</span>
-            <small>from 12,000+ happy homes</small>
-          </div>
-        </div>
-      </section>
-
-      <section className="trust">
-        Trusted by 12,000+ homeowners
-
-        <span>
-          ✓ Verified professionals · Easy booking · Real reviews
-        </span>
-      </section>
-
-      <section className="section">
-        <small>WHAT CAN WE HELP WITH?</small>
-
-        <h2>
-          Small fix or big change,
-          <br />
-          <em>we've got you.</em>
-        </h2>
-
-        <div className="grid">
-          {featuredServices.map(service => {
-            const Icon = service.Icon
-
-            return (
-              <Link
-                className="card"
-                to={`/services/${service.id}`}
-                key={service.id}
-              >
-                <Icon />
-
-                <h3>{service.name}</h3>
-
-                <p>{service.description}</p>
-
-                <b>
-                  Explore <ArrowRight size={14} />
-                </b>
-              </Link>
-            )
-          })}
-        </div>
-      </section>
-
-      <section className="band">
-        <small>THE HOMEFIX DIFFERENCE</small>
-
-        <h2>
-          Good work feels <em>better.</em>
-        </h2>
-
-        <p>
-          <Shield />
-          People you can trust
-          <br />
-          <span>
-            Every professional is vetted and background checked.
-          </span>
-        </p>
-
-        <p>
-          <CalendarDays />
-          Booking that fits your life
-          <br />
-          <span>
-            Pick a time that works. We’ll handle the rest.
-          </span>
-        </p>
-      </section>
-    </Layout>
-  )
-}
-
-/* ----------------------------- Services ----------------------------- */
-
-function Services() {
-  const [query, setQuery] = useState('')
-  const [items, setItems] = useState([])
-  const [state, setState] = useState('loading')
-
-  useEffect(() => {
-    api
-      .get('/services')
-      .then(response => {
-        setItems(response.data)
-        setState('ready')
-      })
-      .catch(error => {
-        console.error('Failed to load services:', error)
-        setState('error')
-      })
-  }, [])
-
-  const filtered = items.filter(service =>
-    service.name.toLowerCase().includes(query.toLowerCase())
-  )
-
-  return (
-    <Layout>
-      <section className="page">
-        <small>OUR SERVICES</small>
-
-        <h1>
-          Everything your home
-          <br />
-          <em>needs to thrive.</em>
-        </h1>
-
-        <p>
-          Thoughtful, reliable help for the things that keep your
-          home running beautifully.
-        </p>
-
-        <input
-          className="search"
-          placeholder="Search services"
-          value={query}
-          onChange={e => setQuery(e.target.value)}
-        />
-
-        {state === 'loading' && <p>Loading services…</p>}
-
-        {state === 'error' && (
-          <p>
-            We could not load services. Check that the API is running
-            on port 5001.
-          </p>
-        )}
-
-        {state === 'ready' && !filtered.length && (
-          <p>No matching services found.</p>
-        )}
-
-        <div className="grid">
-          {filtered.map(service => (
-            <Link
-              className="card"
-              to={`/services/${service.slug}`}
-              key={service.id}
-            >
-              <Wrench />
-
-              <h3>{service.name}</h3>
-
-              <p>{service.description}</p>
-
-              <strong>
-                From NPR {Number(service.base_price).toLocaleString()}
-              </strong>
-
-              <b>
-                Explore <ArrowRight size={14} />
-              </b>
-            </Link>
-          ))}
-        </div>
-      </section>
-    </Layout>
-  )
-}
-
-/* ----------------------------- Professionals ----------------------------- */
-
-function Professionals() {
-  const [items, setItems] = useState([])
-  const [state, setState] = useState('loading')
-
-  useEffect(() => {
-    api
-      .get('/professionals')
-      .then(response => {
-        setItems(response.data)
-        setState('ready')
-      })
-      .catch(error => {
-        console.error('Failed to load professionals:', error)
-        setState('error')
-      })
-  }, [])
-
-  return (
-    <Layout>
-      <section className="page">
-        <small>THE PEOPLE BEHIND THE WORK</small>
-
-        <h1>
-          Meet your future
-          <br />
-          <em>home heroes.</em>
-        </h1>
-
-        <p>
-          Skilled, kind and ready to help. Every HomeFix professional
-          is vetted by us.
-        </p>
-
-        {state === 'loading' && <p>Loading professionals…</p>}
-
-        {state === 'error' && (
-          <p>
-            We could not load professionals. Check that the API is
-            running on port 5001.
-          </p>
-        )}
-
-        {state === 'ready' && !items.length && (
-          <p>No professionals found.</p>
-        )}
-
-        <div className="pro-grid">
-          {items.map(professional => (
-            <Link
-              className="pro"
-              to={`/professionals/${professional.id}`}
-              key={professional.id}
-            >
-              <img
-                src={professional.profile_image_url}
-                alt={professional.full_name}
-              />
-
-              <span>
-                <strong>{professional.full_name}</strong>
-
-                <small>
-                  {professional.profession} · {professional.location}
-                </small>
-
-                <span className="stars">
-                  ★ {professional.rating}
-                </span>
-              </span>
-
-              <ArrowRight />
-            </Link>
-          ))}
-        </div>
-      </section>
-    </Layout>
-  )
-}
-
-/* ----------------------------- Booking ----------------------------- */
-
-function Booking() {
-  const [services, setServices] = useState([])
-  const [professionals, setProfessionals] = useState([])
-
-  const [loading, setLoading] = useState(true)
-  const [done, setDone] = useState(false)
-  const [error, setError] = useState('')
-
-  useEffect(() => {
-    Promise.all([
-      api.get('/services'),
-      api.get('/professionals'),
-    ])
-      .then(([servicesResponse, professionalsResponse]) => {
-        setServices(servicesResponse.data)
-        setProfessionals(professionalsResponse.data)
-        setLoading(false)
-      })
-      .catch(error => {
-        console.error('Failed to load booking data:', error)
-        setError('Could not load services or professionals.')
-        setLoading(false)
-      })
-  }, [])
-
-  const submit = async e => {
-    e.preventDefault()
-
-    setError('')
-
-    const form = e.currentTarget
-
-    try {
-      const formData = Object.fromEntries(new FormData(form))
-
-      await api.post('/bookings', formData, {
-        headers: {
-          Authorization: `Bearer ${
-            localStorage.getItem('homefix_token') || ''
-          }`,
-        },
-      })
-
-      setDone(true)
-    } catch (error) {
-      console.error('Booking failed:', error)
-
-      setError(
-        error.response?.data?.error ||
-          'Could not create booking. Please log in first.'
-      )
-    }
-  }
-
-  return (
-    <Layout>
-      {done ? (
-        <section className="success">
-          <Check />
-
-          <small>YOU'RE ALL SET</small>
-
-          <h1>
-            Your home is in
-            <br />
-            <em>good hands.</em>
-          </h1>
-
-          <p>
-            Your booking has been successfully created.
-          </p>
-
-          <Link className="button dark" to="/dashboard">
-            View my bookings <ArrowRight size={17} />
-          </Link>
-        </section>
-      ) : (
-        <section className="form-page">
-          <div>
-            <small>BOOK A SERVICE</small>
-
-            <h1>
-              Let's get your
-              <br />
-              <em>to-do done.</em>
-            </h1>
-
-            <p>
-              Tell us a little about what you need. It only takes a
-              minute.
-            </p>
-
-            {error && <p className="error">{error}</p>}
-          </div>
-
-          {loading ? (
-            <p>Loading booking options…</p>
-          ) : (
-            <form onSubmit={submit}>
-              <label>
-                Service
-
-                <select name="service_id" required>
-                  <option value="">Select a service</option>
-
-                  {services.map(service => (
-                    <option
-                      value={service.id}
-                      key={service.id}
-                    >
-                      {service.name} — NPR{' '}
-                      {Number(service.base_price).toLocaleString()}
-                    </option>
-                  ))}
-                </select>
-              </label>
-
-              <label>
-                Professional
-
-                <select name="professional_id">
-                  <option value="">No preference</option>
-
-                  {professionals.map(professional => (
-                    <option
-                      value={professional.id}
-                      key={professional.id}
-                    >
-                      {professional.full_name}
-                    </option>
-                  ))}
-                </select>
-              </label>
-
-              <label>
-                Date
-
-                <input
-                  type="date"
-                  name="scheduled_date"
-                  required
-                />
-              </label>
-
-              <label>
-                Time
-
-                <select name="scheduled_time" required>
-                  <option value="">Select a time</option>
-
-                  <option value="09:00">
-                    9:00 AM – 11:00 AM
-                  </option>
-
-                  <option value="12:00">
-                    12:00 PM – 2:00 PM
-                  </option>
-
-                  <option value="15:00">
-                    3:00 PM – 5:00 PM
-                  </option>
-                </select>
-              </label>
-
-              <label>
-                Address
-
-                <input
-                  name="address"
-                  placeholder="123 Main Street"
-                  required
-                />
-              </label>
-
-              <label>
-                Notes
-
-                <textarea name="notes" rows="4" />
-              </label>
-
-              <button className="button dark" type="submit">
-                Request booking <ArrowRight size={17} />
-              </button>
-            </form>
-          )}
-        </section>
-      )}
-    </Layout>
-  )
-}
-
-/* ----------------------------- Simple Pages ----------------------------- */
-
-function Simple({ title, children }) {
-  return (
-    <Layout>
-      <section className="page simple">
-        <small>HOMEFIX</small>
-
-        <h1>{title}</h1>
-
-        <p>{children}</p>
-
-        <Link className="button dark" to="/services">
-          Find a professional <ArrowRight size={17} />
-        </Link>
-      </section>
-    </Layout>
-  )
-}
-
-/* ----------------------------- App Routes ----------------------------- */
+  Search,
+  Star,
+  Calendar,
+  ShieldCheck,
+  Clock,
+  MapPin,
+} from "lucide-react";
+import "./App.css";
+
+const API_URL =
+  import.meta.env.VITE_API_URL || "http://localhost:5001/api";
 
 function App() {
+  const [services, setServices] = useState([]);
+  const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    fetchServices();
+  }, []);
+
+  const fetchServices = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/services`);
+      setServices(response.data);
+    } catch (err) {
+      console.error(err);
+      setError("Unable to load services.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const filteredServices = services.filter((service) =>
+    service.name?.toLowerCase().includes(search.toLowerCase())
+  );
+
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
+    <div className="app">
+      {/* Navbar */}
+      <nav className="navbar">
+        <div className="logo">
+          <div className="logo-icon">
+            <Wrench size={22} />
+          </div>
+          <span>HomeFix</span>
+        </div>
 
-        <Route path="/services" element={<Services />} />
+        <div className="nav-links">
+          <a href="#services">Services</a>
+          <a href="#how-it-works">How It Works</a>
+          <a href="#about">About</a>
+          <button className="login-btn">Login</button>
+        </div>
+      </nav>
 
-        <Route
-          path="/services/:id"
-          element={
-            <Simple title="Service details">
-              Connect with a vetted local expert who cares about the
-              details.
-            </Simple>
-          }
-        />
+      {/* Hero */}
+      <section className="hero">
+        <div className="hero-content">
+          <div className="hero-badge">
+            <ShieldCheck size={16} />
+            Trusted Home Services
+          </div>
 
-        <Route
-          path="/professionals"
-          element={<Professionals />}
-        />
+          <h1>
+            Home services,
+            <br />
+            <span>made simple.</span>
+          </h1>
 
-        <Route
-          path="/professionals/:id"
-          element={
-            <Simple title="Your next home hero">
-              Skilled, kind and ready to help.
-            </Simple>
-          }
-        />
+          <p>
+            Find trusted professionals for repairs, maintenance,
+            and everyday home services.
+          </p>
 
-        <Route path="/booking" element={<Booking />} />
+          <div className="search-box">
+            <Search size={21} />
+            <input
+              type="text"
+              placeholder="What service do you need?"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+            <button>Search</button>
+          </div>
 
-        <Route
-          path="/dashboard"
-          element={
-            <Simple title="Your HomeFix dashboard">
-              Your bookings and home services, all in one place.
-            </Simple>
-          }
-        />
+          <div className="hero-info">
+            <span>
+              <ShieldCheck size={17} />
+              Verified professionals
+            </span>
+            <span>
+              <Clock size={17} />
+              Quick booking
+            </span>
+            <span>
+              <Star size={17} />
+              Quality service
+            </span>
+          </div>
+        </div>
+      </section>
 
-        <Route
-          path="/login"
-          element={
-            <Simple title="Welcome back">
-              Log in to manage your HomeFix bookings.
-            </Simple>
-          }
-        />
+      {/* Services */}
+      <section className="services-section" id="services">
+        <div className="section-header">
+          <div>
+            <p className="section-label">OUR SERVICES</p>
+            <h2>Popular Home Services</h2>
+            <p>Choose a service and book a professional.</p>
+          </div>
 
-        <Route
-          path="/register"
-          element={
-            <Simple title="Make yourself at home.">
-              Create your free HomeFix account.
-            </Simple>
-          }
-        />
+          <div className="location">
+            <MapPin size={18} />
+            Kathmandu
+          </div>
+        </div>
 
-        <Route
-          path="/about"
-          element={
-            <Simple title="Good help should feel this easy.">
-              HomeFix pairs thoughtful homeowners with skilled local
-              professionals.
-            </Simple>
-          }
-        />
+        {loading && (
+          <div className="status">
+            Loading services...
+          </div>
+        )}
 
-        <Route
-          path="/contact"
-          element={
-            <Simple title="Let’s talk.">
-              Our friendly support team is ready to help.
-            </Simple>
-          }
-        />
-      </Routes>
-    </BrowserRouter>
-  )
+        {error && (
+          <div className="error">
+            {error}
+          </div>
+        )}
+
+        {!loading && !error && (
+          <div className="services-grid">
+            {filteredServices.map((service) => (
+              <div className="service-card" key={service.id}>
+                <div className="service-icon">
+                  <Wrench size={25} />
+                </div>
+
+                <div className="service-content">
+                  <h3>{service.name}</h3>
+
+                  <div className="rating">
+                    <Star size={15} fill="currentColor" />
+                    <span>4.8</span>
+                    <span className="reviews">(120+ reviews)</span>
+                  </div>
+
+                  <p>
+                    Professional and reliable {service.name?.toLowerCase()}{" "}
+                    service for your home.
+                  </p>
+
+                  <div className="service-bottom">
+                    <span className="price">
+                      Rs. {service.price || "Contact"}
+                    </span>
+
+                    <button className="book-btn">
+                      <Calendar size={16} />
+                      Book Now
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {!loading && !error && filteredServices.length === 0 && (
+          <div className="status">
+            No services found.
+          </div>
+        )}
+      </section>
+
+      {/* How it works */}
+      <section className="how-section" id="how-it-works">
+        <div className="section-title">
+          <p className="section-label">SIMPLE PROCESS</p>
+          <h2>How HomeFix Works</h2>
+        </div>
+
+        <div className="steps">
+          <div className="step">
+            <div className="step-number">01</div>
+            <h3>Choose a service</h3>
+            <p>Select the home service you need.</p>
+          </div>
+
+          <div className="step">
+            <div className="step-number">02</div>
+            <h3>Book a professional</h3>
+            <p>Choose a convenient date and time.</p>
+          </div>
+
+          <div className="step">
+            <div className="step-number">03</div>
+            <h3>Get it fixed</h3>
+            <p>A professional comes to your home.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer>
+        <div className="logo">
+          <div className="logo-icon">
+            <Wrench size={19} />
+          </div>
+          <span>HomeFix</span>
+        </div>
+
+        <p>Reliable home services, whenever you need them.</p>
+
+        <span>© 2026 HomeFix</span>
+      </footer>
+    </div>
+  );
 }
 
-/* ----------------------------- Shield Icon ----------------------------- */
-
-function Shield() {
-  return <Check size={18} />
-}
-
-export default App
+export default App;
