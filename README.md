@@ -37,7 +37,7 @@ The migration creates `users`, `services`, `professionals`, `bookings`, and `rev
 
 Seed totals:
 
-- 10 services
+- 8 services
 - 15 professionals
 - 10 users
 - 20 bookings
